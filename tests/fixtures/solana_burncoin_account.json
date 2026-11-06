@@ -1,0 +1,51 @@
+{
+ "jsonrpc": "2.0",
+ "result": {
+  "context": {
+   "apiVersion": "4.4.1",
+   "slot": 466285109
+  },
+  "value": {
+   "data": {
+    "parsed": {
+     "info": {
+      "decimals": 6,
+      "extensions": [
+       {
+        "extension": "metadataPointer",
+        "state": {
+         "authority": null,
+         "metadataAddress": "8P8BNixECEJw33Xg2WmqFX2YjcMFVa2PkvaU7Y1Spump"
+        }
+       },
+       {
+        "extension": "tokenMetadata",
+        "state": {
+         "additionalMetadata": [],
+         "mint": "8P8BNixECEJw33Xg2WmqFX2YjcMFVa2PkvaU7Y1Spump",
+         "name": "burncoin",
+         "symbol": "burncoin",
+         "updateAuthority": null,
+         "uri": "https://metadata.j7tracker.io/metadata/ea1ff0ad69b94a81.json"
+        }
+       }
+      ],
+      "freezeAuthority": null,
+      "isInitialized": true,
+      "mintAuthority": null,
+      "supply": "952360482780456"
+     },
+     "type": "mint"
+    },
+    "program": "spl-token-2022",
+    "space": 394
+   },
+   "executable": false,
+   "lamports": 2651760,
+   "owner": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+   "rentEpoch": 18446744073709551615,
+   "space": 394
+  }
+ },
+ "id": 1
+}

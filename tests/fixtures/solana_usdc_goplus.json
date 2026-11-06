@@ -1,0 +1,190 @@
+{
+ "code": 1,
+ "message": "ok",
+ "result": {
+  "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": {
+   "balance_mutable_authority": {
+    "authority": [],
+    "status": "0"
+   },
+   "closable": {
+    "authority": [],
+    "status": "0"
+   },
+   "creators": [],
+   "default_account_state": "1",
+   "default_account_state_upgradable": {
+    "authority": [],
+    "status": "0"
+   },
+   "dex": [
+    {
+     "burn_percent": null,
+     "day": {
+      "price_max": "-1",
+      "price_min": "-1",
+      "volume": "140506206.70937700"
+     },
+     "dex_name": "orca",
+     "fee_rate": "0.0004",
+     "id": "Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE",
+     "lp_amount": null,
+     "month": {
+      "price_max": "-1",
+      "price_min": "-1",
+      "volume": "3047341250.69522000"
+     },
+     "open_time": "0",
+     "price": "90.04509606871222468000",
+     "tvl": "25822355.68",
+     "type": "Concentrated",
+     "week": {
+      "price_max": "-1",
+      "price_min": "-1",
+      "volume": "608925459.81349700"
+     }
+    }
+   ],
+   "freezable": {
+    "authority": [
+     {
+      "address": "7dGbd2QZcCKcTndnHcTL8q7SMVXAkp688NTQYwrRCrar",
+      "malicious_address": 0
+     }
+    ],
+    "status": "1"
+   },
+   "holder_count": "9095715",
+   "holders": [
+    {
+     "account": "7VHUFJHWu2CuExkJcJrzhQPJ2oygupTWkL2A2For4BmE",
+     "balance": "941845580.883734",
+     "is_locked": 0,
+     "locked_detail": [],
+     "percent": "0.1214",
+     "tag": "",
+     "token_account": "3emsAVdmGKERbHjmGfQ6oZ1e35dkf5iYcS6U4CPKFVaa,4kokFKCFMxpCpG41yLYkLEqXW8g1WPfCt2NC9KGivY6N,3GMbR4zRAvyRxaRbCDbgR2f1gPSKm5CQBpSp1u4e3B7w,7k6AqXjSA8u9B7MJki5uQUhWUG163CRgHGoCbNYBsMw6,D7EFDsvCTC9BdnieJkc9BS2gTstUZbxJXNS4CyXFVpVJ,G8ZyAf8rDbSt4ctyRHTkH6cU7nYrC5r5B3vgZD4TqHFL"
+    },
+    {
+     "account": "5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9",
+     "balance": "830975475.644165",
+     "is_locked": 0,
+     "locked_detail": [],
+     "percent": "0.1071",
+     "tag": "",
+     "token_account": "7KJjY7rArbydeLBF7gQ5LdqXRKRYyPArT99NEctsHsgU,FzbcyEZ9m8xjtergWgWDq7mfPoHEbboBF791B6cTpzbq,AsFhNxXtFpYMuCiQzUu31zwDrVF534tdNB4iSsiA4mPM,D2L6m2LcbAmyC2fMnNJNFkMVDGFnnCEgk44o33urq9xB,39FeRfGVCH5Bq5fzChHmL3LAsQCXAvFt7idaLipAQsCs,7KruwqvAhkV6Dykoi8SbZCh4zyxYfLShdjxtx7GNjVWs,6sJZLf7jNeZbfkSshAt2TwXcPACtMfYWVuAD2UN391fg,H7zMeBcj5TTm5dEJEunwy9T7kunMqss2Dksx4ruUGJoq,2ocS3orPq3jyszjsJ4NozKWyhdotr3csDjAizmkj65aH,72MCPf2yP91J2XvpUcgTkJv84EKr81N9h9QNG3SFDZES,8NBXkJzTFrhppoDwf2DPsw9wYoXRkFfrHf6c5pUGpk5d,Gc2DkHMiLDP1KPgiU6JmrgP3RkJ1Pjv4LERBRenPZQvA,FBXgAqaCsyrfLzBDkE1RkoEAobmAJ6cFjG3X6RBqZTCj,3bDHrkpPhJygn8WUhzGn6AaZudQKuYs9Wh4tbJX6mMux,JBTha6yh3d2Gpky92bCvsW62ucXZ3eeLc87bqJYGHP56,862rbVqQGcDSW37eMqTFWpMP7N23JuZurA1fEBS64BHC,8VhasAewEGPrxhbX4hM8Z3sfLtNgtFybuh5u3BwCXuA6,3MU8CwCqv82fAvufNDY3vwvfCGqSUMbq7Qexr4hofXG1,77v3vB8KJAeQdginW7fquutn2VMthxCmkM6TXmhxfVm7,8NF1fRJ3msxVWxpUyvAZpSCC8hS8FBdFCLe1BiVdVjw6,A2jkBxBDCv9y4fsMj678DLoiB8v4GbxgoyRxeVNtjTJb,E7uM73FR9uPnpN5S8cxQZr7moLBt9BM2HKzH7if3sk6R,G4uhj3oohgRcNxRrPWk8tNm5VVDj86FKjM73SRwNjzkr"
+    },
+    {
+     "account": "6LY1JzAFVZsP2a2xKrtU6znQMQ5h4i7tocWdgrkZzkzF",
+     "balance": "126507126.861611",
+     "is_locked": 0,
+     "locked_detail": [],
+     "percent": "0.0163",
+     "tag": "",
+     "token_account": "8g1gYt8tFYP8Yo4Wvz1VpUsfouH1kL79wxeiRvyB4hND,6TzYiZQXFt7nXyLq91QeBnEXTgmcvtxpQ61j2jUfMoa7,4XgV4PgJsLEL1TrbTvKDxg1njoZuKouFHur4WAcWTt3o"
+    },
+    {
+     "account": "DBD8hAwLDRQkTsu6EqviaYNGKPnsAMmQonxf7AH8ZcFY",
+     "balance": "123213902.115574",
+     "is_locked": 0,
+     "locked_detail": [],
+     "percent": "0.0159",
+     "tag": "",
+     "token_account": "FSxJ85FXVsXSr51SeWf9ciJWTcRnqKFSmBgRDeL3KyWw,6oLj1d9659ryEm1daytQ32c9pg8LQCwUHvsGHMyn86K2"
+    },
+    {
+     "account": "AVzP2GeRmqGphJsMxWoqjpUifPpCret7LqWhD8NWQK49",
+     "balance": "109537306.458134",
+     "is_locked": 0,
+     "locked_detail": [],
+     "percent": "0.0141",
+     "tag": "",
+     "token_account": "WzWUoCmtVv7eqAbU3BfKPU3fhLP6CXR8NCJH78UK9VS,BXwLJDCoyi2rX6KTTBTuuZJKuF1Sn2QiNNcsebUDKU1y"
+    },
+    {
+     "account": "8Vkgsarud8mSc1gkzayGA7XhNQfq4wDJRxTWDgq8RaJD",
+     "balance": "100039844.703423",
+     "is_locked": 0,
+     "locked_detail": [],
+     "percent": "0.0129",
+     "tag": "",
+     "token_account": "Cp8wjBC7MVWeMeawTdyPzPdH7ThpBq1vRdBKtVRVTW2B"
+    },
+    {
+     "account": "3csuXZKah5rgpb8RiwX9XfjrMxcp3u1K9mBdCwL51spj",
+     "balance": "77147769.868364",
+     "is_locked": 0,
+     "locked_detail": [],
+     "percent": "0.0099",
+     "tag": "",
+     "token_account": "8MzrQK9MiFhgzFuh3RXyHXGM6xRChHyKy7VZQMqaTqtq"
+    },
+    {
+     "account": "F6ZjiBm1WgVXzez5vxHeBDgaVPQRfLyFb7GFwXvyZVxD",
+     "balance": "70117912.905315",
+     "is_locked": 0,
+     "locked_detail": [],
+     "percent": "0.0090",
+     "tag": "",
+     "token_account": "Ezo6p9nw16XJeDGmKnXSH9rHdGEkwpfZDWfHwb68rUa7"
+    },
+    {
+     "account": "2GAPBYrsxR8pUaDaWGKkAJUf6DcBZrxMjpZ423kLDia1",
+     "balance": "50474811.639692",
+     "is_locked": 0,
+     "locked_detail": [],
+     "percent": "0.0065",
+     "tag": "",
+     "token_account": "cYoCXcb7kq5e4MMVogKpKPho4TVtmmxVsFkhR1Pk75Q"
+    },
+    {
+     "account": "E1bQJ8eMMn3zmeSewW3HQ8zmJr7KR75JonbwAtWx2bux",
+     "balance": "50238372.469966",
+     "is_locked": 0,
+     "locked_detail": [],
+     "percent": "0.0065",
+     "tag": "",
+     "token_account": "6xTBTqJMBr5m7BKqVxmW2x11DfqUwtD3TJsqpxELx72L,GWJMXgVw6vmrTdK4QA2ebd3nnYoNpWrAReUZwpyGCujF"
+    }
+   ],
+   "lp_holders": [],
+   "metadata": {
+    "description": "",
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "uri": ""
+   },
+   "metadata_mutable": {
+    "metadata_upgrade_authority": [
+     {
+      "address": "2wmVCSfPxGPjrnMMn7rchp4uaeoTqN39mXFC2zhPdri9",
+      "malicious_address": 0
+     }
+    ],
+    "status": "1"
+   },
+   "mintable": {
+    "authority": [
+     {
+      "address": "BJE5MMbqXjVwjAF7oxwPYXnTXDyspzZyt4vwenNw5ruG",
+      "malicious_address": 0
+     }
+    ],
+    "status": "1"
+   },
+   "non_transferable": "0",
+   "total_supply": "7757717865.306653",
+   "transfer_fee": {},
+   "transfer_fee_upgradable": {
+    "authority": [],
+    "status": "0"
+   },
+   "transfer_hook": [],
+   "transfer_hook_upgradable": {
+    "authority": [],
+    "status": "0"
+   },
+   "trusted_token": 1
+  }
+ }
+}

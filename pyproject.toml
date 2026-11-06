@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "preflight"
+version = "0.1.2"
+description = "Check before you sign: a read-only precheck for mint and claim contracts, with a CLEAR / CAUTION / BLOCKED verdict."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "George Agbe" }]
+keywords = ["ethereum", "bsc", "bnb-chain", "nft", "mint", "security", "precheck", "web3"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/georgeonweb3/preflight"
+
+[project.scripts]
+preflight = "preflight_core.cli:main"
+
+[tool.setuptools]
+packages = ["preflight_core"]
