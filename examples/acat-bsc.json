@@ -1,0 +1,234 @@
+{
+  "tool": "preflight",
+  "version": "0.1.0",
+  "schema": "preflight.verdict/1",
+  "generated_at": "2026-11-06T01:55:26+00:00",
+  "input": "0x28a38A372639E8C481aD41B9B16E52c3c6366ACC",
+  "chain": {
+    "key": "bsc",
+    "name": "BNB Chain (BSC)",
+    "chain_id": 56,
+    "native_symbol": "BNB"
+  },
+  "wallet": "0xA79E2C85D5456Fa3d9115d86398896a390159D1c",
+  "mode": "READ-ONLY: eth_call / eth_getCode / eth_estimateGas only - no signing, no approvals, no payments",
+  "resolution": {
+    "contract": "0x28a38A372639E8C481aD41B9B16E52c3c6366ACC",
+    "note": "input was a bare contract address",
+    "all_candidates": [
+      "0x28a38A372639E8C481aD41B9B16E52c3c6366ACC"
+    ]
+  },
+  "contract": "0x28a38A372639E8C481aD41B9B16E52c3c6366ACC",
+  "selector_fingerprint": [
+    "01ffc9a7",
+    "06fdde03",
+    "18160ddd",
+    "24bbd049",
+    "32cb6b0c",
+    "379607f5",
+    "3cef28d2",
+    "70a08231",
+    "95d89b41",
+    "a0712d68"
+  ],
+  "library_matches": [
+    {
+      "project": "ACAT (acatnft.app)",
+      "similarity": 1.0,
+      "match_type": "exact_contract",
+      "outcome": "success_free_mint_executed",
+      "failure_reason": null,
+      "mint_method": {
+        "summary": "free mint at value 0; Sourcify-verified source; minted ERC721 #1087 on 2026-11-04, gas 0.00001862 BNB",
+        "price_bnb": "0"
+      }
+    },
+    {
+      "project": "BLOB Miner NFT",
+      "similarity": 0.5,
+      "match_type": "abi_shape",
+      "outcome": "sold_out",
+      "failure_reason": "totalSupply reached 3333/3333; mint() simulation from the wallet reverted - allocation exhausted",
+      "mint_method": {
+        "summary": "mint() gas only, ~149k gas",
+        "price_bnb": "0"
+      }
+    },
+    {
+      "project": "AGENT MAO (MAOAI)",
+      "similarity": 0.364,
+      "match_type": "abi_shape",
+      "outcome": "success_user_minted",
+      "failure_reason": null,
+      "mint_method": {
+        "summary": "first mint per Agent ID free (gas only) through the project launch flow; the token contract itself exposes NO mint function",
+        "price_bnb": "0"
+      }
+    }
+  ],
+  "identification_path": "known shape: 'ACAT (acatnft.app)' (similarity 1.0, exact_contract) - address, price and parameters were still re-verified live in this run",
+  "checks": {
+    "deployment": {
+      "is_contract": true,
+      "code_size_bytes": 13251,
+      "block_at_check": 131924390,
+      "is_proxy_eip1967": false,
+      "implementation": null,
+      "proxy_admin": null,
+      "functions_present": [
+        "MAX_SUPPLY()",
+        "balanceOf(address)",
+        "claim(uint256)",
+        "mint(uint256)",
+        "mintOpen()",
+        "mintedBy(address)",
+        "name()",
+        "supportsInterface(bytes4)",
+        "symbol()",
+        "totalSupply()"
+      ]
+    },
+    "identity": {
+      "type": "ERC721",
+      "name": "ACAT",
+      "symbol": "ACAT",
+      "decimals": null,
+      "owner": null,
+      "paused": null
+    },
+    "supply": {
+      "total_supply": 5999,
+      "max_supply": 5999,
+      "remaining": 0
+    },
+    "price": {
+      "wei": null,
+      "native": "unknown",
+      "via_function": null,
+      "all_probes_native": {},
+      "probes_disagree": false
+    },
+    "open_status": {
+      "probes": {
+        "mintOpen()": false
+      },
+      "open": false,
+      "paused": null
+    },
+    "wallet": {
+      "wallet": "0xA79E2C85D5456Fa3d9115d86398896a390159D1c",
+      "balance_of": 0,
+      "minted_counts": {
+        "mintedBy(address)": 1
+      },
+      "flags": {}
+    },
+    "simulation": {
+      "note": "eth_call only - nothing was signed or sent",
+      "attempts": [
+        {
+          "function": "mint(uint256)",
+          "value_native": "0",
+          "value_wei": 0,
+          "calldata": "0xa0712d680000000000000000000000000000000000000000000000000000000000000001",
+          "result": "revert",
+          "reason": "execution reverted: 0x52df9fe5"
+        },
+        {
+          "function": "claim(uint256)",
+          "value_native": "0",
+          "value_wei": 0,
+          "calldata": "0x379607f50000000000000000000000000000000000000000000000000000000000000001",
+          "result": "revert",
+          "reason": "execution reverted: 0x30cd7471"
+        }
+      ],
+      "candidate_functions": [
+        "mint(uint256)",
+        "claim(uint256)"
+      ],
+      "any_success": false,
+      "free_success": false
+    },
+    "verification": {
+      "status": "exact_match",
+      "source": "sourcify",
+      "detail": "Sourcify v2: exact match"
+    },
+    "gas": {
+      "snapshot": {
+        "ok": true,
+        "gwei_median": 0.05,
+        "gwei_samples": [
+          0.05,
+          0.05,
+          0.05,
+          0.05
+        ],
+        "band": "CHEAP",
+        "band_note": null,
+        "baseline_24h_median_gwei": null,
+        "baseline_samples": 0,
+        "vs_baseline_x": null,
+        "native_usd": 694.53,
+        "native_usd_source": "binance.vision ticker",
+        "cost_table_usd": {
+          "21000": 0.0007,
+          "50000": 0.0017,
+          "100000": 0.0035,
+          "150000": 0.0052,
+          "250000": 0.0087,
+          "500000": 0.0174,
+          "1000000": 0.0347
+        }
+      },
+      "mint_estimate": null
+    }
+  },
+  "verdict": "BLOCKED",
+  "reasons": [
+    {
+      "code": "SOLD_OUT",
+      "level": "block",
+      "message": "supply exhausted: 5999 of 5999 minted, 0 remaining"
+    },
+    {
+      "code": "SIMULATION_REVERTS",
+      "level": "block",
+      "message": "every mint/claim function reverted in eth_call simulation (e.g. mint(uint256): execution reverted: 0x52df9fe5). Closed, sold out, ineligible wallet or wrong parameters are all possible - do not sign blind"
+    },
+    {
+      "code": "NOT_OPEN",
+      "level": "block",
+      "message": "every open-status probe that answered says the mint/claim is not open"
+    },
+    {
+      "code": "SOURCE_VERIFIED",
+      "level": "info",
+      "message": "source code verified on Sourcify (exact match)"
+    },
+    {
+      "code": "PRICE_UNKNOWN",
+      "level": "caution",
+      "message": "no price function answered - the real cost is only visible at simulation/signing time, watch for hidden fees"
+    },
+    {
+      "code": "HISTORY_EXACT_SUCCESS",
+      "level": "info",
+      "message": "this exact contract is in the experience library: ACAT (acatnft.app) - outcome success_free_mint_executed"
+    },
+    {
+      "code": "HISTORY_SHAPE_MATCH",
+      "level": "info",
+      "message": "ABI shape matches 'BLOB Miner NFT' (similarity 0.5) - identification path reused, everything still re-verified live"
+    }
+  ],
+  "timings_seconds": {
+    "resolve_input": 0.0,
+    "probe_and_verify": 23.986,
+    "gas": 4.428,
+    "library_match": 0.0
+  },
+  "total_seconds": 28.415
+}

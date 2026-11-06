@@ -1,0 +1,201 @@
+{
+  "tool": "preflight",
+  "version": "0.1.0",
+  "schema": "preflight.verdict/1",
+  "generated_at": "2026-11-06T01:55:54+00:00",
+  "input": "0xc9b4d42abe8966496aa68a736938bf2d508f7a91",
+  "chain": {
+    "key": "bsc",
+    "name": "BNB Chain (BSC)",
+    "chain_id": 56,
+    "native_symbol": "BNB"
+  },
+  "wallet": "0xA79E2C85D5456Fa3d9115d86398896a390159D1c",
+  "mode": "READ-ONLY: eth_call / eth_getCode / eth_estimateGas only - no signing, no approvals, no payments",
+  "resolution": {
+    "contract": "0xc9b4d42abe8966496aa68a736938bf2d508f7a91",
+    "note": "input was a bare contract address",
+    "all_candidates": [
+      "0xc9b4d42abe8966496aa68a736938bf2d508f7a91"
+    ]
+  },
+  "contract": "0xc9b4d42abe8966496aa68a736938bf2d508f7a91",
+  "selector_fingerprint": [
+    "24bbd049",
+    "3cef28d2",
+    "40c10f19",
+    "70a08231",
+    "8da5cb5b",
+    "a0712d68",
+    "a2309ff8"
+  ],
+  "library_matches": [
+    {
+      "project": "BNB JIAYOU (bianjiayou.xyz)",
+      "similarity": 1.0,
+      "match_type": "exact_contract",
+      "outcome": "blocked_unverified_minter_preview_reverts",
+      "failure_reason": "Mint contract source NOT verified (the project's own FAQ admits it; Sourcify has no match) while the separate token contract IS verified. quoteFor(wallet,1) read 0 and freeMintAvailable read 1 on-chain, but eth_call mint simulation reverted. Not executed 2026-11-04.",
+      "mint_method": {
+        "summary": "first share claimed free on-chain in theory; in practice the minter could not be read or simulated - blocked",
+        "price_bnb": null
+      }
+    }
+  ],
+  "identification_path": "known shape: 'BNB JIAYOU (bianjiayou.xyz)' (similarity 1.0, exact_contract) - address, price and parameters were still re-verified live in this run",
+  "checks": {
+    "deployment": {
+      "is_contract": true,
+      "code_size_bytes": 8005,
+      "block_at_check": 131924453,
+      "is_proxy_eip1967": false,
+      "implementation": null,
+      "proxy_admin": null,
+      "functions_present": [
+        "balanceOf(address)",
+        "mint(address,uint256)",
+        "mint(uint256)",
+        "mintOpen()",
+        "mintedBy(address)",
+        "owner()",
+        "totalMinted()"
+      ]
+    },
+    "identity": {
+      "type": "unknown",
+      "name": null,
+      "symbol": null,
+      "decimals": null,
+      "owner": "0xc903bcdf3a53be51c98d90b9629254c5efde0f5d",
+      "paused": null
+    },
+    "supply": {
+      "total_supply": null,
+      "max_supply": null,
+      "remaining": null
+    },
+    "price": {
+      "wei": null,
+      "native": "unknown",
+      "via_function": null,
+      "all_probes_native": {},
+      "probes_disagree": false
+    },
+    "open_status": {
+      "probes": {
+        "mintOpen()": true
+      },
+      "open": true,
+      "paused": null
+    },
+    "wallet": {
+      "wallet": "0xA79E2C85D5456Fa3d9115d86398896a390159D1c",
+      "balance_of": null,
+      "minted_counts": {
+        "mintedBy(address)": 0
+      },
+      "flags": {}
+    },
+    "simulation": {
+      "note": "eth_call only - nothing was signed or sent",
+      "attempts": [
+        {
+          "function": "mint(uint256)",
+          "value_native": "0",
+          "value_wei": 0,
+          "calldata": "0xa0712d680000000000000000000000000000000000000000000000000000000000000001",
+          "result": "revert",
+          "reason": "execution reverted: 0x"
+        },
+        {
+          "function": "mint(address,uint256)",
+          "value_native": "0",
+          "value_wei": 0,
+          "calldata": "0x40c10f19000000000000000000000000a79e2c85d5456fa3d9115d86398896a390159d1c0000000000000000000000000000000000000000000000000000000000000001",
+          "result": "revert",
+          "reason": "execution reverted: 0x"
+        }
+      ],
+      "candidate_functions": [
+        "mint(uint256)",
+        "mint(address,uint256)"
+      ],
+      "any_success": false,
+      "free_success": false
+    },
+    "verification": {
+      "status": "none",
+      "source": "sourcify",
+      "detail": "Sourcify v2: no verified match (404)"
+    },
+    "gas": {
+      "snapshot": {
+        "ok": true,
+        "gwei_median": 0.05,
+        "gwei_samples": [
+          0.05,
+          0.05,
+          0.05,
+          0.05
+        ],
+        "band": "CHEAP",
+        "band_note": null,
+        "baseline_24h_median_gwei": null,
+        "baseline_samples": 0,
+        "vs_baseline_x": null,
+        "native_usd": 694.16,
+        "native_usd_source": "binance.vision ticker",
+        "cost_table_usd": {
+          "21000": 0.0007,
+          "50000": 0.0017,
+          "100000": 0.0035,
+          "150000": 0.0052,
+          "250000": 0.0087,
+          "500000": 0.0174,
+          "1000000": 0.0347
+        }
+      },
+      "mint_estimate": null
+    }
+  },
+  "verdict": "BLOCKED",
+  "reasons": [
+    {
+      "code": "SIMULATION_REVERTS",
+      "level": "block",
+      "message": "every mint/claim function reverted in eth_call simulation (e.g. mint(uint256): execution reverted: 0x). Closed, sold out, ineligible wallet or wrong parameters are all possible - do not sign blind"
+    },
+    {
+      "code": "UNVERIFIED_AND_REVERTING",
+      "level": "block",
+      "message": "source code is NOT verified and the mint simulation reverts - this is the exact shape of the BNB JIAYOU block: nothing about this contract can be trusted"
+    },
+    {
+      "code": "UNVERIFIED_SOURCE",
+      "level": "caution",
+      "message": "source code is NOT verified on Sourcify - nobody outside the project can read what this contract does"
+    },
+    {
+      "code": "OWNER_PRESENT",
+      "level": "info",
+      "message": "contract has an owner (0xc903bcdf3a53be51c98d90b9629254c5efde0f5d) - check what the owner can change before trusting long-term"
+    },
+    {
+      "code": "PRICE_UNKNOWN",
+      "level": "caution",
+      "message": "no price function answered - the real cost is only visible at simulation/signing time, watch for hidden fees"
+    },
+    {
+      "code": "HISTORY_EXACT_FAILURE",
+      "level": "caution",
+      "message": "this exact contract is in the experience library: BNB JIAYOU (bianjiayou.xyz) - outcome blocked_unverified_minter_preview_reverts (Mint contract source NOT verified (the project's own FAQ admits it; Sourcify has no match) while the separate token contract IS verified. quoteFor(wallet,1) read 0 and freeMintAvailable read 1 on-chain, but eth_call mint simulation reverted. Not executed 2026-11-04.)"
+    }
+  ],
+  "timings_seconds": {
+    "resolve_input": 0.0,
+    "probe_and_verify": 23.588,
+    "gas": 4.272,
+    "library_match": 0.0
+  },
+  "total_seconds": 27.86
+}

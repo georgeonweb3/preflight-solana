@@ -1,0 +1,27 @@
+========================================================================
+PREFLIGHT v0.1.0 · BNB Chain (BSC) · read-only: nothing signed, nothing sent
+========================================================================
+Contract   0x28a38A372639E8C481aD41B9B16E52c3c6366ACC
+           (input was a bare contract address)
+Identity   ACAT ($ACAT) · ERC721
+Source     Sourcify: exact match
+Price      unknown (no price function answered)
+Supply     total 5999 · max 5999 · remaining 0
+Open       mintOpen()=False
+Wallet     0xA79E2C85...159D1c · holds 0 · minted mintedBy(address)=1
+Simulate   mint(uint256) @ 0 BNB -> REVERT - execution reverted: 0x52df9fe5
+Simulate   claim(uint256) @ 0 BNB -> REVERT - execution reverted: 0x30cd7471
+Gas        0.05 gwei · CHEAP · BNB $694.53
+------------------------------------------------------------------------
+VERDICT    BLOCKED
+  [BLOCK] supply exhausted: 5999 of 5999 minted, 0 remaining
+  [BLOCK] every mint/claim function reverted in eth_call simulation (e.g. mint(uint256): execution reverted: 0x52df9fe5). Closed, sold out, ineligible wallet or wrong parameters are all possible - do not sign blind
+  [BLOCK] every open-status probe that answered says the mint/claim is not open
+  [ ok  ] source code verified on Sourcify (exact match)
+  [WARN ] no price function answered - the real cost is only visible at simulation/signing time, watch for hidden fees
+  [ ok  ] this exact contract is in the experience library: ACAT (acatnft.app) - outcome success_free_mint_executed
+  [ ok  ] ABI shape matches 'BLOB Miner NFT' (similarity 0.5) - identification path reused, everything still re-verified live
+------------------------------------------------------------------------
+History    known shape: 'ACAT (acatnft.app)' (similarity 1.0, exact_contract) - address, price and parameters were still re-verified live in this run
+Time       28.415s · block 131924390
+========================================================================

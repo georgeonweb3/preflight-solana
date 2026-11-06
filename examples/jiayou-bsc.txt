@@ -1,0 +1,26 @@
+========================================================================
+PREFLIGHT v0.1.0 · BNB Chain (BSC) · read-only: nothing signed, nothing sent
+========================================================================
+Contract   0xc9b4d42abe8966496aa68a736938bf2d508f7a91
+           (input was a bare contract address)
+Identity   unknown name · unknown
+Source     Sourcify: none
+Price      unknown (no price function answered)
+Supply     unknown (no supply functions answered)
+Open       mintOpen()=True
+Wallet     0xA79E2C85...159D1c · holds unknown · minted mintedBy(address)=0
+Simulate   mint(uint256) @ 0 BNB -> REVERT - execution reverted: 0x
+Simulate   mint(address,uint256) @ 0 BNB -> REVERT - execution reverted: 0x
+Gas        0.05 gwei · CHEAP · BNB $694.16
+------------------------------------------------------------------------
+VERDICT    BLOCKED
+  [BLOCK] every mint/claim function reverted in eth_call simulation (e.g. mint(uint256): execution reverted: 0x). Closed, sold out, ineligible wallet or wrong parameters are all possible - do not sign blind
+  [BLOCK] source code is NOT verified and the mint simulation reverts - this is the exact shape of the BNB JIAYOU block: nothing about this contract can be trusted
+  [WARN ] source code is NOT verified on Sourcify - nobody outside the project can read what this contract does
+  [ ok  ] contract has an owner (0xc903bcdf3a53be51c98d90b9629254c5efde0f5d) - check what the owner can change before trusting long-term
+  [WARN ] no price function answered - the real cost is only visible at simulation/signing time, watch for hidden fees
+  [WARN ] this exact contract is in the experience library: BNB JIAYOU (bianjiayou.xyz) - outcome blocked_unverified_minter_preview_reverts (Mint contract source NOT verified (the project's own FAQ admits it; Sourcify has no match) while the separate token contract IS verified. quoteFor(wallet,1) read 0 and freeMintAvailable read 1 on-chain, but eth_call mint simulation reverted. Not executed 2026-11-04.)
+------------------------------------------------------------------------
+History    known shape: 'BNB JIAYOU (bianjiayou.xyz)' (similarity 1.0, exact_contract) - address, price and parameters were still re-verified live in this run
+Time       27.86s · block 131924453
+========================================================================

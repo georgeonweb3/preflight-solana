@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+# runtime gas-price history, built up locally by the gas module
+data/gas_history.jsonl
