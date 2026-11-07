@@ -149,18 +149,66 @@ def evaluate_solana(checks: dict):
                           "(one source is stale) - trust the RPC read shown here and re-check before signing"))
 
     # ---- Token-2022 extension cautions -----------------------------------
+    # Transfer fees are scheduled by epoch: olderTransferFee applies until
+    # newerTransferFee.epoch, then the newer schedule takes over. Reading
+    # the newer schedule unconditionally judges a mint by a fee that may
+    # not be active yet - in both directions (a live 1% fee hidden behind
+    # a scheduled drop to 0%, or a future 5% fee reported as current).
     fee_cfg = _ext_state(extensions, "transferFeeConfig")
-    fee_bps = None
+    fee_bps = None          # the fee active right now
+    pending_fee = None      # (bps, epoch) scheduled but not yet active
+    fee_unresolved = False  # schedules differ and no epoch could decide
     if fee_cfg:
-        fee = fee_cfg.get("newerTransferFee") or fee_cfg.get("olderTransferFee") or {}
-        fee_bps = fee.get("transferFeeBasisPoints")
+        older = fee_cfg.get("olderTransferFee") or {}
+        newer = fee_cfg.get("newerTransferFee") or {}
+        current_epoch = sol.get("current_epoch")
+
+        def _sched_bps(sched):
+            bps = sched.get("transferFeeBasisPoints")
+            return bps if isinstance(bps, int) else None
+
+        def _sched_epoch(sched):
+            epoch = sched.get("epoch")
+            return epoch if isinstance(epoch, int) else None
+
+        older_bps, newer_bps = _sched_bps(older), _sched_bps(newer)
+        newer_epoch = _sched_epoch(newer)
+        if newer_bps is not None and older_bps is None:
+            fee_bps = newer_bps
+        elif older_bps is not None and newer_bps is None:
+            fee_bps = older_bps
+        elif older_bps is not None and newer_bps is not None:
+            if current_epoch is not None and newer_epoch is not None:
+                if current_epoch >= newer_epoch:
+                    fee_bps = newer_bps
+                else:
+                    fee_bps = older_bps
+                    if newer_bps != older_bps:
+                        pending_fee = (newer_bps, newer_epoch)
+            else:
+                # The epoch could not decide: judge by the worse schedule
+                # rather than letting an unreadable schedule render as
+                # no fee at all.
+                fee_bps = max(older_bps, newer_bps)
+                fee_unresolved = older_bps != newer_bps
     if fee_bps:
-        reasons.append(_reason("TRANSFER_FEE", "caution",
-                          f"Token-2022 transfer fee of {fee_bps} basis points "
-                          f"({fee_bps / 100:g}%) is taken on every transfer"))
+        fee_msg = (f"Token-2022 transfer fee of {fee_bps} basis points "
+                   f"({fee_bps / 100:g}%) is taken on every transfer")
+        if fee_unresolved:
+            fee_msg += (" (the mint carries two fee schedules and the "
+                        "current epoch could not be read, so the higher "
+                        "schedule is shown)")
+        reasons.append(_reason("TRANSFER_FEE", "caution", fee_msg))
     elif not fee_bps and goplus.get("transfer_fee_rate"):
         reasons.append(_reason("TRANSFER_FEE", "caution",
                           f"GoPlus reports a transfer fee (rate {goplus['transfer_fee_rate']}) on this token"))
+    if pending_fee is not None:
+        pending_bps, pending_epoch = pending_fee
+        pending_level = "caution" if pending_bps > (fee_bps or 0) else "info"
+        reasons.append(_reason("TRANSFER_FEE_SCHEDULED", pending_level,
+                          f"a transfer fee change is scheduled at epoch {pending_epoch}: "
+                          f"the fee becomes {pending_bps} basis points "
+                          f"({pending_bps / 100:g}%) from that epoch"))
     hook = _ext_state(extensions, "transferHook")
     if (hook and hook.get("programId")) or goplus.get("transfer_hook"):
         reasons.append(_reason("TRANSFER_HOOK", "caution",

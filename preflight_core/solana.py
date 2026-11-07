@@ -50,6 +50,7 @@ READ_ONLY_METHODS = {
     "getTokenAccountsByOwner",
     "getBalance",
     "getSlot",
+    "getEpochInfo",
 }
 
 RUGCHECK_BASE = "https://api.rugcheck.xyz/v1/tokens"
@@ -419,10 +420,21 @@ def probe_solana(rpcs, mint, wallet=None):
         f_largest = ex.submit(rpc.call, "getTokenLargestAccounts", [mint])
         f_rugcheck = ex.submit(fetch_rugcheck, mint)
         f_goplus = ex.submit(fetch_goplus, mint)
+        f_epoch = ex.submit(rpc.call, "getEpochInfo", [])
         account_result = f_account.result()
         largest_result = f_largest.result()
         rugcheck, rugcheck_body = f_rugcheck.result()
         goplus = f_goplus.result()
+        epoch_result = f_epoch.result()
+
+    # The current epoch decides which Token-2022 transfer fee schedule is
+    # active (older vs newer). A failed read stays None: the verdict then
+    # falls back to the worst case instead of guessing a schedule.
+    current_epoch = None
+    if isinstance(epoch_result, dict):
+        epoch_value = epoch_result.get("epoch")
+        if isinstance(epoch_value, int):
+            current_epoch = epoch_value
 
     slot = None
     account_value = None
@@ -467,6 +479,7 @@ def probe_solana(rpcs, mint, wallet=None):
 
     return {
         "slot": slot,
+        "current_epoch": current_epoch,
         "mint": mint_info,
         "holders": holders,
         "rugcheck": rugcheck,

@@ -119,6 +119,7 @@ def run_solana_check(target, chain, wallet=None):
     }
     checks["wallet"] = probe.get("wallet")
     checks["solana"] = {
+        "current_epoch": probe.get("current_epoch"),
         "authorities": {
             "mint_authority": mint_info.get("mint_authority"),
             "freeze_authority": mint_info.get("freeze_authority"),

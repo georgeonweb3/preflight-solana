@@ -40,7 +40,7 @@ def codes(reasons):
 
 def checks_from(deployment_status="ok", mint_authority=None, freeze_authority=None,
                 extensions=None, holders=None, rugcheck=None, goplus=None,
-                supply=1_000_000, wallet=None):
+                supply=1_000_000, wallet=None, current_epoch=None):
     """A clean Solana checks dict; tests poke one hole at a time."""
     return {
         "deployment": {"status": deployment_status,
@@ -49,6 +49,7 @@ def checks_from(deployment_status="ok", mint_authority=None, freeze_authority=No
         "supply": {"total_supply": supply, "supply_ui": float(supply), "decimals": 6},
         "wallet": wallet,
         "solana": {
+            "current_epoch": current_epoch,
             "authorities": {"mint_authority": mint_authority,
                             "freeze_authority": freeze_authority},
             "extensions": extensions or [],
@@ -294,6 +295,60 @@ class TestSolanaVerdict(unittest.TestCase):
         self.assertEqual(verdict, "CAUTION")
         self.assertIn("TRANSFER_FEE", codes(reasons))
         self.assertIn("TRANSFER_HOOK", codes(reasons))
+
+    def test_transfer_fee_uses_active_schedule_not_newer(self):
+        # Regression (reported by @0xeddiekim, 2026-11-07): a synthetic
+        # 1% -> 0% scheduled fee change returned CLEAR because the verdict
+        # always read newerTransferFee. At an epoch before the change the
+        # ACTIVE fee is the older 1% and must caution.
+        checks = checks_from(current_epoch=800, extensions=[
+            {"name": "transferFeeConfig",
+             "state": {
+                 "olderTransferFee": {"epoch": 700, "transferFeeBasisPoints": 100},
+                 "newerTransferFee": {"epoch": 900, "transferFeeBasisPoints": 0}}}])
+        verdict, reasons = evaluate_solana(checks)
+        self.assertEqual(verdict, "CAUTION")
+        self.assertIn("TRANSFER_FEE", codes(reasons))
+        fee_reason = next(r for r in reasons if r["code"] == "TRANSFER_FEE")
+        self.assertIn("100 basis points (1%)", fee_reason["message"])
+        self.assertIn("TRANSFER_FEE_SCHEDULED", codes(reasons))
+
+    def test_transfer_fee_after_scheduled_epoch_uses_newer(self):
+        checks = checks_from(current_epoch=950, extensions=[
+            {"name": "transferFeeConfig",
+             "state": {
+                 "olderTransferFee": {"epoch": 700, "transferFeeBasisPoints": 100},
+                 "newerTransferFee": {"epoch": 900, "transferFeeBasisPoints": 0}}}])
+        verdict, reasons = evaluate_solana(checks)
+        self.assertNotIn("TRANSFER_FEE", codes(reasons))
+        self.assertNotIn("TRANSFER_FEE_SCHEDULED", codes(reasons))
+
+    def test_transfer_fee_scheduled_increase_is_caution(self):
+        # Active fee is 0%, but a rise to 5% is scheduled: the pending
+        # change alone must surface as a caution, shown separately.
+        checks = checks_from(current_epoch=800, extensions=[
+            {"name": "transferFeeConfig",
+             "state": {
+                 "olderTransferFee": {"epoch": 700, "transferFeeBasisPoints": 0},
+                 "newerTransferFee": {"epoch": 900, "transferFeeBasisPoints": 500}}}])
+        verdict, reasons = evaluate_solana(checks)
+        self.assertEqual(verdict, "CAUTION")
+        self.assertNotIn("TRANSFER_FEE", codes(reasons))
+        scheduled = next(r for r in reasons if r["code"] == "TRANSFER_FEE_SCHEDULED")
+        self.assertEqual(scheduled["level"], "caution")
+        self.assertIn("epoch 900", scheduled["message"])
+
+    def test_transfer_fee_epoch_unknown_uses_worse_schedule(self):
+        # No current epoch (the getEpochInfo read failed): never let the
+        # 0% schedule hide the 1% one.
+        checks = checks_from(current_epoch=None, extensions=[
+            {"name": "transferFeeConfig",
+             "state": {
+                 "olderTransferFee": {"epoch": 700, "transferFeeBasisPoints": 100},
+                 "newerTransferFee": {"epoch": 900, "transferFeeBasisPoints": 0}}}])
+        verdict, reasons = evaluate_solana(checks)
+        self.assertEqual(verdict, "CAUTION")
+        self.assertIn("TRANSFER_FEE", codes(reasons))
 
     def test_warn_risk_is_caution(self):
         checks = checks_from(rugcheck={
