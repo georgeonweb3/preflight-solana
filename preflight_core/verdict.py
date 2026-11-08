@@ -40,6 +40,10 @@ _VERIFICATION_REASONS = {
                       "source code verified on Sourcify (partial match: same code, different metadata)"),
     "none": ("UNVERIFIED_SOURCE", "caution",
              "source code is NOT verified on Sourcify - nobody outside the project can read what this contract does"),
+    "not_indexed": ("SOURCE_NOT_INDEXED", "caution",
+                    "source verification could not be checked: Sourcify does not index this chain, "
+                    "so there is no verified-source record to consult - treat the source as unread "
+                    "(not the same as a contract that was checked and found unverified)"),
 }
 
 

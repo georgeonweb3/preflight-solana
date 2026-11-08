@@ -106,8 +106,11 @@ def snapshot(chain, rpc: Rpc = None) -> dict:
     rpc = rpc or Rpc(chain.rpcs)
     samples = []
     # ask several endpoints independently; Rpc fails over within a call,
-    # so rebuild per endpoint to get genuine independent samples.
-    for ep in chain.rpcs[:4]:
+    # so rebuild per endpoint to get genuine independent samples. The
+    # endpoints come from the Rpc the caller built, so an environment
+    # RPC override (check.effective_rpcs) is sampled too, not just the
+    # chain's built-in list.
+    for ep in rpc.endpoints[:4]:
         r = Rpc([ep]).gas_price_wei()
         if r is not None:
             samples.append(r / 1e9)

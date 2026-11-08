@@ -130,6 +130,22 @@ def render_text(r: dict) -> str:
         lines.append("=" * _CARD_WIDTH)
         return "\n".join(lines)
 
+    if any(reason.get("code") == "RPC_NOT_PUBLISHED" for reason in r.get("reasons", [])):
+        # Pre-launch chain (Elysium before its RPC is published): the
+        # evidence sections are all null by construction, so the card
+        # is the header, the verdict and the one reason that explains
+        # the gap - rendering the generic sections would dress "not
+        # checked" up as a set of empty findings.
+        lines.append("-" * _CARD_WIDTH)
+        lines.append(f"VERDICT    {r['verdict']}")
+        tag = {"block": "BLOCK", "caution": "WARN ", "info": " ok  "}
+        for reason in r["reasons"]:
+            lines.append(f"  [{tag.get(reason['level'], '?????')}] {reason['message']}")
+        lines.append("-" * _CARD_WIDTH)
+        lines.append(f"Time       {r.get('total_seconds')}s")
+        lines.append("=" * _CARD_WIDTH)
+        return "\n".join(lines)
+
     if chain.get("key") == "solana":
         lines.extend(_solana_card_lines(r))
         return "\n".join(lines)

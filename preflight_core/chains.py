@@ -15,6 +15,14 @@ so it is an adapter entry here (kind="solana") plus its own pipeline
 (solana_check.py) - base58 mints, mint/freeze authorities and Token-2022
 extensions instead of eth_call probes, and RugCheck/GoPlus reports
 instead of Sourcify.
+
+Elysium is the pre-launch case: Kinetiq has published the mainnet
+chain id (99901) ahead of the 2026-11-09 launch but not a public RPC
+or explorer, so the adapter ships with an empty RPC list and check.py
+reports that gap honestly until PREFLIGHT_ELYSIUM_RPC activates it
+(see effective_rpcs in check.py). Sourcify does not index the chain,
+which the sourcify_indexed flag records - "not indexed" is a
+different fact from "checked and unverified".
 """
 from dataclasses import dataclass, field
 
@@ -30,6 +38,11 @@ class Chain:
     coingecko_id: str             # price fallback id
     explorer_domains: tuple       # used to rank addresses found on a page
     gas_bands_calibrated: bool = False
+    # False when Sourcify has no index for this chain at all: the
+    # verification stage then reports "not_indexed" instead of asking
+    # Sourcify a question it cannot answer (its reply would otherwise
+    # be indistinguishable from a checked contract, or from an outage).
+    sourcify_indexed: bool = True
     # "evm" chains run the eth_call pipeline in check.py. "solana" is
     # a different account model entirely (base58 mints, authorities
     # instead of owner functions, no Sourcify/eth_call) and dispatches
@@ -72,6 +85,24 @@ BASE = Chain(
     gas_bands_calibrated=False,
 )
 
+ELYSIUM = Chain(
+    key="elysium",
+    name="Elysium",
+    chain_id=99901,
+    # Kinetiq published the chain id in its docs on 2026-11-07 ahead of
+    # the 2026-11-09 mainnet launch, but no public RPC yet ("Coming
+    # soon"). The list stays empty - never guess an endpoint - until
+    # the official RPC is published; PREFLIGHT_ELYSIUM_RPC then
+    # activates the chain with no code change (check.py).
+    rpcs=(),
+    native_symbol="HYPE",
+    price_symbol="HYPEUSDT",
+    coingecko_id="hyperliquid",
+    explorer_domains=(),  # explorer not published yet either
+    gas_bands_calibrated=False,
+    sourcify_indexed=False,
+)
+
 SOLANA = Chain(
     key="solana",
     name="Solana",
@@ -87,4 +118,4 @@ SOLANA = Chain(
     kind="solana",
 )
 
-CHAINS = {c.key: c for c in (BSC, BASE, SOLANA)}
+CHAINS = {c.key: c for c in (BSC, BASE, ELYSIUM, SOLANA)}

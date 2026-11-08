@@ -117,8 +117,10 @@ preflight check <contract-address-or-project-url> --chain bsc --wallet 0xYourPub
   reports that wallet's balance of the mint.)
 - `--json` prints the full machine-readable verdict (schema
   `preflight.verdict/1`). `--out report.json` saves it to a file.
-- `--chain` is `bsc` today; `base` and `solana` also work. On Solana
-  the target is a token mint address (base58) - see Chains below.
+- `--chain` is `bsc` today; `base`, `elysium` and `solana` also work.
+  On Solana the target is a token mint address (base58) - see Chains
+  below. Elysium is registered ahead of its 2026-11-09 mainnet launch
+  and activates when its RPC is published - see Chains below.
 - Exit codes: 0 = check done (BLOCKED is a successful check), 2 = the
   input could not be resolved to a contract address, nothing guessed.
 
@@ -179,6 +181,22 @@ BSC is first-class: the probes and gas bands were calibrated on live
 mint hunting there. Base works through the same adapter shape; its gas
 bands are not calibrated yet, so you get the price without a band name.
 New EVM chains are config, not code. PRs welcome.
+
+Elysium (`--chain elysium`, chain ID 99901, HYPE gas) is registered
+ahead of Kinetiq's 2026-11-09 mainnet launch. The chain ID is official
+(published in Kinetiq's docs on 2026-11-07); the public RPC and
+explorer were still "Coming soon" at registration time, so the adapter
+ships with no RPC endpoint - Preflight never guesses one. Until an RPC
+exists, a check on this chain returns CAUTION with the gap named
+(`RPC_NOT_PUBLISHED`): the contract was not checked, and the report
+says so instead of dressing the gap up as a verdict. Activation needs
+no code change: when Kinetiq publishes the RPC, run with
+`PREFLIGHT_ELYSIUM_RPC=<url>` (the same `PREFLIGHT_<CHAIN>_RPC`
+override works on any chain) and the full EVM pipeline runs. One
+honesty note for when it does: Sourcify does not index Elysium, so the
+verification stage reports `not_indexed` - the source could not be
+checked there, which is not the same as a contract checked and found
+unverified.
 
 Solana (`--chain solana`) is its own adapter, because nothing about
 the EVM pipeline applies there: no source verification, no eth_call.
